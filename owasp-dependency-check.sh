@@ -1,8 +1,8 @@
 #!/bin/sh
 
 DC_VERSION="latest"
-DC_DIRECTORY=$HOME/OWASP-Dependency-Check
-DC_PROJECT="dependency-check scan: $(pwd)"
+DC_DIRECTORY= /var/lib/jenkins/workspace/ZapTest
+DC_PROJECT="dependency-check scan: /var/lib/jenkins/workspace/ZapTest"
 DATA_DIRECTORY="$DC_DIRECTORY/data"
 CACHE_DIRECTORY="$DC_DIRECTORY/data/cache"
 
@@ -21,9 +21,9 @@ docker pull owasp/dependency-check:$DC_VERSION
 docker run --rm \
     -e user=$USER \
     -u $(id -u ${USER}):$(id -g ${USER}) \
-    --volume $(pwd):/src:z \
+    --volume /var/lib/jenkins:/src:z \
     --volume "$DATA_DIRECTORY":/usr/share/dependency-check/data:z \
-    --volume $(pwd)/odc-reports:/report:z \
+    --volume /var/lib/jenkins/workspace/ZapTest/odc-reports:/report:z \
     owasp/dependency-check:$DC_VERSION \
     --scan /src \
     --format "ALL" \
