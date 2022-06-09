@@ -13,15 +13,15 @@ pipeline {
       }
     }
     
-    stage ('Check-Git-Secrets') {
+   /*  stage ('Check-Git-Secrets') {
       steps {
         sh 'rm trufflehog || true'
         sh 'docker run gesellix/trufflehog --json https://github.com/alorete/webapp.git > trufflehog'
         sh 'cat trufflehog'
       }
-    }
+    } */
     
-    stage ('Source Composition Analysis') {
+    /* stage ('Source Composition Analysis') {
       steps {
          sh 'rm owasp* || true'
          sh 'wget "https://raw.githubusercontent.com/alorete/webapp/master/owasp-dependency-check.sh" '
@@ -31,7 +31,7 @@ pipeline {
         
       }
     }
-    
+    */
     stage ('SAST') {
       steps {
         withSonarQubeEnv('sonar') {
@@ -56,13 +56,13 @@ pipeline {
     }
     
     
-    stage ('DAST') {
+    /* stage ('DAST') {
       steps {
         sshagent(['zap']) {
          sh 'ssh -o  StrictHostKeyChecking=no ubuntu@34.226.210.179 "docker run -t owasp/zap2docker-weekly zap-full-scan.py -t http://34.226.210.179:8080/webapp/" || true'
         }
       }
-    }
+    } */
     
   }
 }
