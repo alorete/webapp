@@ -50,20 +50,20 @@ pipeline {
        }
     }
     
-   /* stage ('Deploy-To-Tomcat') {
+   stage ('Deploy-To-Tomcat') {
             steps {
            sshagent(['tomcat']) {
-                sh 'scp -o StrictHostKeyChecking=no target/*.war ubuntu@13.232.202.25:/prod/apache-tomcat-8.5.39/webapps/webapp.war'
+                sh 'scp -o StrictHostKeyChecking=no target/*.war ubuntu@http://18.205.20.115/:/opt/apache-tomcat-10.0.21/webapps'
               }      
            }       
     }
-    */
+   
     
      
    /*   stage ('DAST') {
       steps {
         sshagent(['zap']) {
-         sh 'ssh -o  StrictHostKeyChecking=no ubuntu@13.232.158.44 "docker run -t owasp/zap2docker-stable zap-baseline.py -t http://13.232.202.25:8080/webapp/" || true'
+         sh 'ssh -o  StrictHostKeyChecking=no ubuntu@18.205.20.115 "docker run -t owasp/zap2docker-weekly zap-baseline.py -t http://54.80.135.175:8080/webapp/" || true'
         }
       }
     }
